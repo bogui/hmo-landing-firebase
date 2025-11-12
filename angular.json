@@ -39,8 +39,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
-              "src/tailwind.scss"
+              "src/styles.scss"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
