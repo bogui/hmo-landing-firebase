@@ -16,3 +16,30 @@
     )
   );
 }
+
+.navigation-cta {
+  @include mat.elevation(4);
+}
+
+// Toolbar styles based on scroll position
+.scrolled {
+  @include mat.elevation(6);
+
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: color-mix(in srgb, var(--mat-sys-surface) 95%, transparent),
+      container-text-color: var(--mat-sys-on-surface),
+      standard-height: 84px,
+    )
+  );
+}
+
+.top {
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: color-mix(in srgb, var(--mat-sys-surface) 0%, transparent),
+      container-text-color: var(--mat-sys-on-surface),
+      standard-height: 84px,
+    )
+  );
+}

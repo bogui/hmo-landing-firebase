@@ -16,57 +16,55 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar [ngClass]="[getToolbarClasses(), 'z-1000', 'transition-all', 'duration-300']">
       <div class="container mx-auto w-full flex items-center justify-between">
         @if (isHandset$ | async) {
           <button type="button" aria-label="Toggle sidenav" matIconButton (click)="drawer.toggle()">
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
           </button>
         }
-        <span class="text-2xl">Hyper-M</span>
+        <!-- <span class="text-2xl">Hyper-M</span> -->
+        <div class="grid grid-cols-3 items-center max-h-14">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="max-h-14" aria-label="Hyper-M Logo">
+            <circle cx="45" cy="60" r="22" fill="#818cf8" opacity="0.95"></circle>
+            <circle cx="75" cy="60" r="22" fill="#fb923c" opacity="0.95"></circle>
+          </svg>
+          <span class="text-2xl font-semibold col-span-2 text-gray-200">Hyper-M</span>
+        </div>
         @if ((isHandset$ | async) === false) {
           <span class="flex-1"></span>
           <div class="flex gap-4 items-center">
             <button
+              [routerLinkActiveOptions]="{ exact: true }"
+              routerLinkActive="active"
+              routerLink="/"
+              fragment="problem"
+              (click)="scroll('problem')"
               matButton
-              class="text-sm md:text-base font-medium transition-all duration-300 relative text-cyan-600 dark:text-cyan-400 font-semibold"
             >
-              Предизвикателства</button
-            ><button
-              matButton
-              class="text-sm md:text-base font-medium transition-all duration-300 relative text-gray-700 hover:text-cyan-600 dark:text-gray-300 dark:hover:text-cyan-400"
-            >
-              Как работи</button
-            ><button
-              matButton
-              class="text-sm md:text-base font-medium transition-all duration-300 relative text-gray-700 hover:text-cyan-600 dark:text-gray-300 dark:hover:text-cyan-400"
-            >
-              Модули</button
-            ><button
-              matButton
-              class="text-sm md:text-base font-medium transition-all duration-300 relative text-gray-700 hover:text-cyan-600 dark:text-gray-300 dark:hover:text-cyan-400"
-            >
-              Пилотна програма</button
-            ><button
+              Предизвикателства
+            </button>
+            <button routerLink="/" fragment="solution" (click)="scroll('solution')" matButton>Как работи</button>
+            <button routerLink="/" fragment="features" (click)="scroll('features')" matButton>Модули</button>
+            <button routerLink="/" fragment="exclusive" (click)="scroll('exclusive')" matButton>
+              Пилотна програма
+            </button>
+            <button
               matFab
               extended
-              class="bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-300 dark:hover:bg-blue-500 dark:text-gray-900 px-5 py-2.5 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              routerLink="/"
+              fragment="signup-form"
+              (click)="scroll('signup-form')"
+              class="transition-all duration-300 transform hover:scale-105 hover:shadow-lg navigation-cta"
             >
               <mat-icon>add</mat-icon>
               Резервирайте място
-            </button>
-            <button matIconButton class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-              <mat-icon>favorite</mat-icon>
-            </button>
-            <button matIconButton class="example-icon bg-red-500" aria-label="Example icon-button with share icon">
-              <mat-icon>share</mat-icon>
             </button>
           </div>
         }
       </div>
     </mat-toolbar>
-    <div class="container mx-auto w-full py-10">
-      <router-outlet />
-    </div>
+    <router-outlet />
+    <app-footer-section />
   </mat-sidenav-content>
 </mat-sidenav-container>

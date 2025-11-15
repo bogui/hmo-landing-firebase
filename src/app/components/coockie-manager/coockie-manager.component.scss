@@ -1,0 +1,18 @@
+@use "@angular/material" as mat;
+@use "sass:map";
+
+$cookie-color: map.get(mat.$orange-palette, 70);
+
+:host {
+  @include mat.card-overrides(
+    (
+      elevated-container-elevation: var(--mat-sys-level4),
+    )
+  );
+
+  @include mat.icon-overrides(
+    (
+      color: $cookie-color,
+    )
+  );
+}

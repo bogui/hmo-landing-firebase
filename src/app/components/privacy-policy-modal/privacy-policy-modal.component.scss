@@ -1,0 +1,9 @@
+@use "@angular/material" as mat;
+
+:host {
+  @include mat.dialog-overrides(
+    (
+      actions-alignment: space-between,
+    )
+  );
+}

@@ -1,0 +1,24 @@
+@use "@angular/material" as mat;
+
+:host {
+  @include mat.card-overrides(
+    (
+      elevated-container-elevation: var(--mat-sys-level4),
+    )
+  );
+
+  @include mat.icon-overrides(
+    (
+      color: var(--mat-sys-on-tertiary),
+    )
+  );
+}
+
+.submit-button {
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--mat-sys-tertiary),
+      filled-label-text-color: var(--mat-sys-on-tertiary),
+    )
+  );
+}

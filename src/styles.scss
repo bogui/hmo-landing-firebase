@@ -4,10 +4,38 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use "@angular/material" as mat;
-@use "tailwindcss";
+@use "./theme/tailwind.css";
+@use "sass:map";
+
+$filled-container-color: map.get(mat.$orange-palette, 70);
+$filled-label-text-color: map.get(mat.$orange-palette, 20);
+$tonal-container-color: map.get(mat.$cyan-palette, 70);
+$tonal-label-text-color: map.get(mat.$cyan-palette, 20);
 
 :root {
   --mat-sys-shadow: light-dark(#0000000d, #5252521f);
+
+  @include mat.button-overrides(
+    (
+      tonal-container-shape: 8px,
+      tonal-horizontal-padding: 24px,
+      tonal-label-text-color: $tonal-label-text-color,
+      tonal-container-color: $tonal-container-color,
+      filled-container-shape: 8px,
+      filled-horizontal-padding: 24px,
+      filled-label-text-color: $filled-label-text-color,
+      filled-container-color: $filled-container-color,
+    )
+  );
+
+  @include mat.fab-overrides(
+    (
+      extended-container-height: 42px,
+      extended-container-shape: 8px,
+    )
+  );
+
+  @include mat.elevation-classes();
 }
 
 html {
@@ -22,7 +50,6 @@ html {
     )
   );
 
-  @include mat.elevation-classes();
   @include mat.app-background();
 }
 
