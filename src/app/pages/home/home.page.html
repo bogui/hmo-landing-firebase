@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-white text-gray-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+<div class="min-h-screen transition-colors duration-300">
   <!-- <header
     class="fixed top-22 left-0 right-0 z-50 transition-all duration-300 bg-transparent dark:bg-linear-to-tr dark:from-blue-950 dark:to-indigo-900"
   >
@@ -130,11 +130,7 @@
   <app-home-automated-workflows-section />
   <app-home-analytics-and-dashboard-section />
   <app-home-exclusive-section />
-  @defer (on viewport) {
-    <app-home-signup-form-section />
-  } @placeholder {
-    <div class="h-screen bg-gray-100 animate-pulse"></div>
-  }
+  <app-home-signup-form-section />
 </div>
 
 @if (showCookieManager()) {

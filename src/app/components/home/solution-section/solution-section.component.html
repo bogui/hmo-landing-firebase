@@ -154,15 +154,17 @@
             </div>
             <div class="w-8 h-8 bg-gray-100 dark:bg-neutral-900 rounded-full"></div>
           </div>
-          <picture
-            ><img
+          <picture>
+            <img
+              [ngSrc]="dashboardImage()"
               class="rounded-xl my-4"
-              alt="Description"
-              loading="lazy"
+              alt="Dashboard preview showing Hyper-M solution features"
               width="960"
               height="540"
-              src="/images/dashboard_dark.png"
-          /></picture>
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </picture>
           <div class="grid grid-cols-2 gap-6 mb-8">
             <div class="bg-blue-50 dark:bg-blue-950 rounded-xl p-4">
               <div class="flex items-center justify-between mb-3">

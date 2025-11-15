@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Left circle - deep indigo -->
+  <circle cx="45" cy="60" r="22" fill="#4f46e5" opacity="0.95"/>
+  
+  <!-- Right circle - warm coral -->
+  <circle cx="75" cy="60" r="22" fill="#f97316" opacity="0.95"/>
+</svg>

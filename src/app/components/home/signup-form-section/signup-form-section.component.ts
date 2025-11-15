@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
+import { AnalyticsService } from '../../../services/analytics.service';
 import { RecaptchaService } from '../../../services/recaptcha.service';
 
 @Component({
@@ -26,9 +28,12 @@ import { RecaptchaService } from '../../../services/recaptcha.service';
 })
 export class SignupFormSectionComponent implements OnInit {
   private readonly _recaptchaService = inject(RecaptchaService);
+  private readonly _analyticsService = inject(AnalyticsService);
   private readonly _formBuilder = inject(FormBuilder);
 
   loading = signal(false);
+
+  submitted = signal<boolean>(false);
 
   form = this._formBuilder.group({
     firstName: ['', Validators.required],
@@ -107,6 +112,12 @@ export class SignupFormSectionComponent implements OnInit {
 
             console.log('Form data ready for submission:', formData);
 
+            // Track conversion for Google Ads campaign
+            this._analyticsService.trackConversion(
+              environment.googleAdsConversionValue,
+              environment.googleAdsConversionCurrency
+            );
+
             // TODO: Send formData to your backend API endpoint
             // The backend should verify the recaptchaToken by making a POST request to:
             // https://www.google.com/recaptcha/api/siteverify
@@ -132,6 +143,7 @@ export class SignupFormSectionComponent implements OnInit {
         },
         complete: () => {
           this.loading.set(false);
+          this.submitted.set(true);
         },
       });
   }

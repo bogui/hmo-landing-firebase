@@ -126,15 +126,17 @@
               <div class="w-3 h-3 bg-yellow-400 dark:bg-yellow-600 rounded-full"></div>
               <div class="w-3 h-3 bg-green-400 dark:bg-green-600 rounded-full"></div>
             </div>
-            <picture
-              ><img
+            <picture>
+              <img
+                [ngSrc]="dashboardImage()"
                 class="rounded-xl my-4"
-                alt="Description"
-                loading="lazy"
+                alt="Dashboard preview showing Hyper-M interface"
                 width="960"
                 height="540"
-                src="/images/dashboard_dark.png"
-            /></picture>
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </picture>
             <div class="space-y-4">
               <div class="h-4 bg-gray-200 dark:bg-gray-800 rounded-sm w-3/4"></div>
               <div class="h-4 bg-blue-200 dark:bg-gray-800 rounded-sm w-1/2"></div>

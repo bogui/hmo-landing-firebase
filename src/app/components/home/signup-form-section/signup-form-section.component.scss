@@ -22,3 +22,30 @@
     )
   );
 }
+
+.success-card {
+  @include mat.card-overrides(
+    (
+      outlined-container-color: light-dark(var(--color-green-50), var(--color-green-950)),
+      outlined-outline-color: light-dark(var(--color-green-500), var(--color-green-600)),
+      outlined-container-elevation: var(--mat-sys-level4),
+    )
+  );
+
+  @include mat.icon-overrides(
+    (
+      color: light-dark(var(--color-green-500), var(--color-green-400)),
+    )
+  );
+
+  .mat-mdc-card-header-text {
+    width: 100%;
+  }
+
+  .mat-icon {
+    font-size: 48px;
+    line-height: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}

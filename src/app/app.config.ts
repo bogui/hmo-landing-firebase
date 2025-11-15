@@ -10,6 +10,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
+import { AnalyticsService } from './services/analytics.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +28,12 @@ export const appConfig: ApplicationConfig = {
         iconRegistry.setDefaultFontSetClass(...outlinedFontSetClasses);
       })(inject(MatIconRegistry));
       return initializerFn();
+    }),
+    // Initialize Analytics Service
+    provideAppInitializer(() => {
+      // Injecting the service triggers its constructor which handles initialization
+      // based on consent and sets up router tracking
+      inject(AnalyticsService);
     }),
   ],
 };

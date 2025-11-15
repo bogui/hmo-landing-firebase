@@ -1,88 +1,112 @@
 <section id="signup-form" class="py-24 bg-linear-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950">
-  <div class="max-w-4xl mx-auto px-2 sm:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 dark:text-gray-300 leading-tight">
-        Резервирайте своето място <span class="text-blue-600 dark:text-blue-400">в пилотната вълна</span> още днес.
-      </h2>
-      <p class="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed dark:text-gray-400">
-        Попълнете формата, за да планираме демонстрация и оценка на процесите ви.<span
-          class="font-semibold text-orange-600 dark:text-orange-400"
-        >
-          Ще ви потвърдим място в рамките на 2 работни дни.</span
-        >
-      </p>
-    </div>
-    <mat-card>
+  @if (submitted()) {
+    <mat-card class="max-w-3xl mx-auto p-6 sm:p-12 success-card space-y-6" appearance="outlined">
+      <mat-card-header [className]="'w-full'">
+        <h2 matCardTitle class="text-3xl sm:text-4xl font-bold text-green-900 mb-6 dark:text-green-300 leading-tight">
+          <div class="flex items-center justify-center space-x-3">
+            <mat-icon class="w-12 h-12 text-5xl">check_circle</mat-icon>
+            <span>Благодарим ви!</span>
+          </div>
+        </h2>
+      </mat-card-header>
       <mat-card-content>
-        <form [formGroup]="form" class="space-y-4 sm:space-y-6 p-4 sm:p-6" (ngSubmit)="onSubmit()">
-          <div class="grid md:grid-cols-2 gap-6">
-            <mat-form-field>
-              <mat-label>Име</mat-label>
-              <input matInput placeholder="Иван" type="text" formControlName="firstName" />
-              @if (form.get('firstName')?.errors?.['required']) {
-                <mat-error>Това поле е задължително</mat-error>
-              }
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Фамилия</mat-label>
-              <input matInput placeholder="Петров" type="text" formControlName="lastName" />
-              @if (form.get('lastName')?.errors?.['required']) {
-                <mat-error>Това поле е задължително</mat-error>
-              }
-            </mat-form-field>
-          </div>
-          <mat-form-field class="w-full">
-            <mat-label>Компания</mat-label>
-            <input matInput placeholder="Име на фирма / група компании" type="text" formControlName="company" />
-            @if (form.get('company')?.errors?.['required']) {
-              <mat-error>Това поле е задължително</mat-error>
-            }
-          </mat-form-field>
-          <div class="grid md:grid-cols-2 gap-6">
-            <mat-form-field>
-              <mat-label>Служебен имейл</mat-label>
-              <input matInput placeholder="name@company.bg" type="email" formControlName="email" />
-              @if (form.get('email')?.errors?.['required']) {
-                <mat-error>Това поле е задължително</mat-error>
-              }
-              @if (form.get('email')?.errors?.['email']) {
-                <mat-error>Моля въведете валиден имейл</mat-error>
-              }
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Телефон</mat-label>
-              <span matPrefix class="bg-tertiary px-2 py-6 text-on-tertiary">+359</span>
-              <input matInput placeholder="888-123-456" type="tel" formControlName="phone" />
-              @if (form.get('phone')?.errors?.['required']) {
-                <mat-error>Това поле е задължително</mat-error>
-              }
-              @if (form.get('phone')?.errors?.['pattern']) {
-                <mat-error>Моля въведете валиден телефонен номер</mat-error>
-              }
-            </mat-form-field>
-          </div>
-
-          <button matButton="filled" type="submit" class="w-full submit-button p-8!" [disabled]="loading()">
-            <div class="flex items-center justify-center space-x-3">
-              <span class="hidden md:block">Изпратете заявка за пилотен достъп</span>
-              <span class="block md:hidden">Изпрати заявка</span>
-              @if (loading()) {
-                <mat-progress-spinner mode="indeterminate" diameter="24"></mat-progress-spinner>
-              } @else {
-                <mat-icon>send</mat-icon>
-              }
-            </div>
-          </button>
-        </form>
+        <p class="text-base sm:text-lg text-green-600 leading-relaxed dark:text-green-200">
+          Вашата заявка е изпратена успешно. Наш консултант ще се свърже с вас до 48 часа, за да планирате следващите
+          стъпки.
+        </p>
       </mat-card-content>
-      <mat-card-footer class="p-4 sm:p-6">
-        <div class="p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl">
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-            След като получим формата, ще ви изпратим имейл с календар за демонстрация и кратък чеклист с данните за
-            миграция. Потвърждението на място става след обща среща и съгласуване на roadmap.
-          </p>
-        </div>
-      </mat-card-footer>
     </mat-card>
-  </div>
+  } @else {
+    <div class="max-w-4xl mx-auto px-2 sm:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 dark:text-gray-300 leading-tight">
+          Резервирайте своето място <span class="text-blue-600 dark:text-blue-400">в пилотната вълна</span> още днес.
+        </h2>
+        <p class="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed dark:text-gray-400">
+          Попълнете формата, за да планираме демонстрация и оценка на процесите ви.<span
+            class="font-semibold text-orange-600 dark:text-orange-400"
+          >
+            Ще ви потвърдим място в рамките на 2 работни дни.</span
+          >
+        </p>
+      </div>
+      <mat-card class="overflow-hidden">
+        <mat-card-content>
+          <form [formGroup]="form" class="space-y-4 p-4 sm:p-6" (ngSubmit)="onSubmit()">
+            <div class="grid md:grid-cols-2 gap-6">
+              <mat-form-field>
+                <mat-label>Име</mat-label>
+                <input matInput placeholder="Иван" type="text" formControlName="firstName" />
+                <mat-icon matSuffix> person </mat-icon>
+                @if (form.get('firstName')?.errors?.['required']) {
+                  <mat-error>Това поле е задължително</mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Фамилия</mat-label>
+                <input matInput placeholder="Петров" type="text" formControlName="lastName" />
+                <mat-icon matSuffix>person</mat-icon>
+                @if (form.get('lastName')?.errors?.['required']) {
+                  <mat-error>Това поле е задължително</mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <mat-form-field class="w-full">
+              <mat-label>Компания</mat-label>
+              <input matInput placeholder="Име на фирма / група компании" type="text" formControlName="company" />
+              <mat-icon matSuffix>business</mat-icon>
+              @if (form.get('company')?.errors?.['required']) {
+                <mat-error>Това поле е задължително</mat-error>
+              }
+            </mat-form-field>
+            <div class="grid md:grid-cols-2 gap-6">
+              <mat-form-field>
+                <mat-label>Служебен имейл</mat-label>
+                <input matInput placeholder="name@company.bg" type="email" formControlName="email" />
+                <mat-icon matSuffix>email</mat-icon>
+                @if (form.get('email')?.errors?.['required']) {
+                  <mat-error>Това поле е задължително</mat-error>
+                }
+                @if (form.get('email')?.errors?.['email']) {
+                  <mat-error>Моля въведете валиден имейл</mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Телефон</mat-label>
+                <span matPrefix class="bg-tertiary px-2 py-6 text-on-tertiary">+359</span>
+                <input matInput placeholder="888-123-456" type="tel" formControlName="phone" />
+                <mat-icon matSuffix>phone</mat-icon>
+                @if (form.get('phone')?.errors?.['required']) {
+                  <mat-error>Това поле е задължително</mat-error>
+                }
+                @if (form.get('phone')?.errors?.['pattern']) {
+                  <mat-error>Моля въведете валиден телефонен номер</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <button matButton="filled" type="submit" class="w-full submit-button p-8!" [disabled]="loading()">
+              <div class="flex items-center justify-center space-x-3">
+                <span class="hidden md:block">Изпратете заявка за пилотен достъп</span>
+                <span class="block md:hidden">Изпрати заявка</span>
+                @if (loading()) {
+                  <mat-progress-spinner mode="indeterminate" diameter="24"></mat-progress-spinner>
+                } @else {
+                  <mat-icon>send</mat-icon>
+                }
+              </div>
+            </button>
+          </form>
+        </mat-card-content>
+        <mat-card-footer>
+          <div class="p-6 bg-gray-50 dark:bg-gray-900">
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+              След като получим формата, ще ви изпратим имейл с календар за демонстрация и кратък чеклист с данните за
+              миграция. Потвърждението на място става след обща среща и съгласуване на roadmap.
+            </p>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  }
 </section>

@@ -46,15 +46,16 @@
                 <circle cx="11" cy="11" r="8"></circle>
               </svg>
             </div>
-            <picture
-              ><img
+            <picture>
+              <img
+                [ngSrc]="inventoryImage()"
                 class="rounded-xl my-4"
-                alt="Description"
-                loading="lazy"
+                alt="Inventory management interface showing storage and nomenclatures"
                 width="960"
                 height="540"
-                src="/images/inventory_dark.png"
-            /></picture>
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </picture>
             <div class="space-y-3">
               <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
                 <div class="flex items-center space-x-3">
