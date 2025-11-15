@@ -8,9 +8,8 @@ describe('ExclusiveSectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExclusiveSectionComponent]
-    })
-    .compileComponents();
+      imports: [ExclusiveSectionComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ExclusiveSectionComponent);
     component = fixture.componentInstance;

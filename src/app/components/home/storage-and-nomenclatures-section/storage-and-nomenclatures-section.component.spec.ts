@@ -8,9 +8,8 @@ describe('StorageAndNomenclaturesSectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StorageAndNomenclaturesSectionComponent]
-    })
-    .compileComponents();
+      imports: [StorageAndNomenclaturesSectionComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(StorageAndNomenclaturesSectionComponent);
     component = fixture.componentInstance;

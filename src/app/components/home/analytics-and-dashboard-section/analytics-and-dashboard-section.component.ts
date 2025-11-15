@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './analytics-and-dashboard-section.component.html',
   styleUrl: './analytics-and-dashboard-section.component.scss',
 })
-export class AnalyticsAndDashboardSectionComponent {
-
-}
+export class AnalyticsAndDashboardSectionComponent {}

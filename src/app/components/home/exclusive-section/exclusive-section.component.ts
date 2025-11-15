@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './exclusive-section.component.html',
   styleUrl: './exclusive-section.component.scss',
 })
-export class ExclusiveSectionComponent {
-
-}
+export class ExclusiveSectionComponent {}

@@ -8,9 +8,8 @@ describe('CoockieManagerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CoockieManagerComponent]
-    })
-    .compileComponents();
+      imports: [CoockieManagerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CoockieManagerComponent);
     component = fixture.componentInstance;

@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './automated-workflows-section.component.html',
   styleUrl: './automated-workflows-section.component.scss',
 })
-export class AutomatedWorkflowsSectionComponent {
-
-}
+export class AutomatedWorkflowsSectionComponent {}

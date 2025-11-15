@@ -8,9 +8,8 @@ describe('AutomatedWorkflowsSectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AutomatedWorkflowsSectionComponent]
-    })
-    .compileComponents();
+      imports: [AutomatedWorkflowsSectionComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AutomatedWorkflowsSectionComponent);
     component = fixture.componentInstance;
