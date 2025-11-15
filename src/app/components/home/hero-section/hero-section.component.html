@@ -39,10 +39,10 @@
             е създаден от малък екип. И въпреки, че не разполагаме с ресурсите не големите корпорации, имаме нещо, което
             те нямат - лоялност, персонализираност и лично внимание към всеки клиент. Не автоматичен глас по телефона
             или служебен имейл. А директна комуникация с хора, които вникват в вашите проблеми и желания. Присъединете
-            се към първите 100 компании –
-            <span class="font-semibold text-orange-600 dark:text-orange-400"
-              >остават 95 свободни места за първите 100 компании.</span
-            >
+            се към първите {{ allowedUsersCount }} компании –
+            <span class="font-semibold text-orange-600 dark:text-orange-400">
+              остават {{ actualRegisterdUsersCount() }} свободни места за първите {{ allowedUsersCount }} компании.
+            </span>
           </p>
         </div>
         <div class="flex flex-wrap gap-8 pt-4">
@@ -66,7 +66,7 @@
               <circle cx="9" cy="7" r="4"></circle>
             </svg>
             <span class="text-sm font-medium text-gray-700 dark:text-gray-400"
-              >100 компании с лично отношение и персонално внедряване</span
+              >{{ allowedUsersCount }} компании с лично отношение и персонално внедряване</span
             >
           </div>
           <div class="flex items-center space-x-2">

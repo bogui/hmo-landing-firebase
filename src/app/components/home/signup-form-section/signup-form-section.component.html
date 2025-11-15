@@ -36,17 +36,17 @@
             <div class="grid md:grid-cols-2 gap-6">
               <mat-form-field>
                 <mat-label>Име</mat-label>
-                <input matInput placeholder="Иван" type="text" formControlName="firstName" />
+                <input matInput placeholder="Иван" type="text" formControlName="first_name" />
                 <mat-icon matSuffix> person </mat-icon>
-                @if (form.get('firstName')?.errors?.['required']) {
+                @if (form.get('first_name')?.errors?.['required']) {
                   <mat-error>Това поле е задължително</mat-error>
                 }
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Фамилия</mat-label>
-                <input matInput placeholder="Петров" type="text" formControlName="lastName" />
+                <input matInput placeholder="Петров" type="text" formControlName="last_name" />
                 <mat-icon matSuffix>person</mat-icon>
-                @if (form.get('lastName')?.errors?.['required']) {
+                @if (form.get('last_name')?.errors?.['required']) {
                   <mat-error>Това поле е задължително</mat-error>
                 }
               </mat-form-field>

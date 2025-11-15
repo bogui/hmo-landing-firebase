@@ -4,3 +4,4 @@ onlyBuiltDependencies:
   - lmdb
   - msgpackr-extract
   - protobufjs
+  - supabase

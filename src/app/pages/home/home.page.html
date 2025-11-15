@@ -122,7 +122,7 @@
       </div>
     </div>
   </header> -->
-  <app-home-hero-section />
+  <app-home-hero-section [registerdUsersCount]="registerdUsersCount()" />
   <app-home-problem-section />
   <app-home-solution-section />
   <app-home-features-section />
@@ -130,7 +130,7 @@
   <app-home-automated-workflows-section />
   <app-home-analytics-and-dashboard-section />
   <app-home-exclusive-section />
-  <app-home-signup-form-section />
+  <app-home-signup-form-section (registered)="onRegistered()" />
 </div>
 
 @if (showCookieManager()) {

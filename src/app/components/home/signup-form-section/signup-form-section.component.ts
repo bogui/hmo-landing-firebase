@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -11,6 +11,8 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { AnalyticsService } from '../../../services/analytics.service';
 import { RecaptchaService } from '../../../services/recaptcha.service';
+import { SupabaseService } from '../../../services/supabase.service';
+import { TablesInsert } from '../../../types/supabase.types';
 
 @Component({
   selector: 'app-home-signup-form-section',
@@ -30,18 +32,21 @@ export class SignupFormSectionComponent implements OnInit {
   private readonly _recaptchaService = inject(RecaptchaService);
   private readonly _analyticsService = inject(AnalyticsService);
   private readonly _formBuilder = inject(FormBuilder);
+  private readonly _supabaseService = inject(SupabaseService);
 
   loading = signal(false);
 
   submitted = signal<boolean>(false);
 
   form = this._formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
+    first_name: ['', Validators.required],
+    last_name: ['', Validators.required],
     company: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{3}$/)]],
   });
+
+  registered = output<void>();
 
   ngOnInit(): void {
     // Format phone number on value changes
@@ -104,11 +109,10 @@ export class SignupFormSectionComponent implements OnInit {
           if (token) {
             const phoneValue = this.form.value.phone || '';
             // Prepare form data with phone number including country prefix
-            const formData = {
+            const formData: TablesInsert<'signups'> = {
               ...this.form.value,
               phone: `+359 ${phoneValue}`, // Add country prefix
-              recaptchaToken: token, // Include token for server-side validation
-            };
+            } as TablesInsert<'signups'>;
 
             console.log('Form data ready for submission:', formData);
 
@@ -123,7 +127,7 @@ export class SignupFormSectionComponent implements OnInit {
             // https://www.google.com/recaptcha/api/siteverify
             // with parameters: secret (your secret key), response (the token)
             // Example:
-            // this.http.post('/api/signup', formData).subscribe({
+            // this.http.post('/api/signup', { ...formData, recaptchaToken: token }).subscribe({
             //   next: (response) => {
             //     console.log('Form submitted successfully:', response);
             //   },
@@ -131,6 +135,14 @@ export class SignupFormSectionComponent implements OnInit {
             //     console.error('Form submission failed:', error);
             //   }
             // });
+            this._supabaseService.client.from('signups').insert(formData).then(({ data, error }) => {
+              if (error) {
+                console.error('Error inserting signup:', error);
+                return;
+              }
+              console.log('Signup inserted successfully:', data);
+              this.registered.emit();
+            });
           } else {
             console.error('reCAPTCHA token generation failed');
             // You might want to show an error message to the user here
