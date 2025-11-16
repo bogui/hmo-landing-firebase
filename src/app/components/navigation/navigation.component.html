@@ -17,23 +17,23 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar [ngClass]="[getToolbarClasses(), 'z-1000', 'transition-all', 'duration-300']">
-      <div class="container mx-auto w-full flex items-center justify-between">
+      <div class="container mx-auto flex w-full items-center justify-between">
         @if (isHandset$ | async) {
           <button type="button" aria-label="Toggle sidenav" matIconButton (click)="drawer.toggle()">
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
           </button>
         }
         <!-- <span class="text-2xl">Hyper-M</span> -->
-        <div class="grid grid-cols-3 items-center max-h-14">
+        <div class="grid max-h-14 grid-cols-3 items-center">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="max-h-14" aria-label="Hyper-M Logo">
             <circle cx="45" cy="60" r="22" fill="#818cf8" opacity="0.95"></circle>
             <circle cx="75" cy="60" r="22" fill="#fb923c" opacity="0.95"></circle>
           </svg>
-          <span class="text-2xl font-semibold col-span-2 text-gray-200">Hyper-M</span>
+          <span class="col-span-2 text-2xl font-semibold text-gray-200">Hyper-M</span>
         </div>
         @if ((isHandset$ | async) === false) {
           <span class="flex-1"></span>
-          <div class="flex gap-4 items-center">
+          <div class="flex items-center gap-4">
             <button
               [routerLinkActiveOptions]="{ exact: true }"
               routerLinkActive="active"
@@ -55,7 +55,7 @@
               routerLink="/"
               fragment="signup-form"
               (click)="scroll('signup-form')"
-              class="transition-all duration-300 transform hover:scale-105 hover:shadow-lg navigation-cta"
+              class="navigation-cta transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               <mat-icon>add</mat-icon>
               Резервирайте място

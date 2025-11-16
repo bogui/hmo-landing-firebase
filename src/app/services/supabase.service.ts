@@ -24,9 +24,7 @@ export class SupabaseService {
       const { url, anonKey } = environment.supabase;
 
       if (!url || !anonKey) {
-        throw new Error(
-          'Supabase URL and anon key must be provided in environment configuration'
-        );
+        throw new Error('Supabase URL and anon key must be provided in environment configuration');
       }
 
       this._client = createClient(url, anonKey, {
@@ -49,7 +47,10 @@ export class SupabaseService {
    * Check if Supabase is available in the current context
    */
   get isAvailable(): boolean {
-    return isPlatformBrowser(this.platformId) && !!environment.supabase.url && !!environment.supabase.anonKey;
+    return (
+      isPlatformBrowser(this.platformId) &&
+      !!environment.supabase.url &&
+      !!environment.supabase.anonKey
+    );
   }
 }
-
