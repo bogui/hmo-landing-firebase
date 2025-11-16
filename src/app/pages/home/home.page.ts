@@ -3,6 +3,7 @@ import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { CoockieManagerComponent } from '../../components/coockie-manager/coockie-manager.component';
 import { AnalyticsAndDashboardSectionComponent } from '../../components/home/analytics-and-dashboard-section/analytics-and-dashboard-section.component';
 import { AutomatedWorkflowsSectionComponent } from '../../components/home/automated-workflows-section/automated-workflows-section.component';
+import { BelowHeroSectionComponent } from '../../components/home/below-hero-section/below-hero-section.component';
 import { ExclusiveSectionComponent } from '../../components/home/exclusive-section/exclusive-section.component';
 import { FeaturesSectionComponent } from '../../components/home/features-section/features-section.component';
 import { HeroSectionComponent } from '../../components/home/hero-section/hero-section.component';
@@ -17,6 +18,7 @@ import { SupabaseService } from '../../services/supabase.service';
   selector: 'app-home',
   imports: [
     HeroSectionComponent,
+    BelowHeroSectionComponent,
     ProblemSectionComponent,
     SolutionSectionComponent,
     FeaturesSectionComponent,
@@ -37,7 +39,6 @@ export class HomePage implements OnInit {
 
   showCookieManager = this._cookieService.showCookieManager;
   registerdUsersCount = signal<number>(0);
-
 
   ngOnInit(): void {
     if (isPlatformBrowser(this._platform)) {
