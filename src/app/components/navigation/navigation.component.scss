@@ -27,7 +27,7 @@
 
   @include mat.toolbar-overrides(
     (
-      container-background-color: color-mix(in srgb, var(--mat-sys-surface) 95%, transparent),
+      container-background-color: color-mix(in srgb, var(--mat-sys-surface) 98%, transparent),
       container-text-color: var(--mat-sys-on-surface),
       standard-height: 84px,
     )
