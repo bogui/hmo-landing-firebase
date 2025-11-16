@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  recaptchaSiteKey: '6LcvkXEUAAAAAMJBOmTtyfAfnpX2Dssn8MWWd_sO',
+  recaptchaSiteKey: '6LfBUr0qAAAAAGPmb4RJus5oKzcpRatBfM0kD0fW',
   googleAnalyticsMeasurementId: 'G-JTGNKHGT46',
   googleAdsMeasurementId: 'AW-17721144829',
   googleAdsConversionLabel: 'UT4lCOzr_L0bEP3rjIJC',

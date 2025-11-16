@@ -1,28 +1,28 @@
-<section id="signup-form" class="py-24 bg-linear-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950">
+<section id="signup-form" class="bg-linear-to-br from-blue-50 to-indigo-50 py-24 dark:from-blue-950 dark:to-indigo-950">
   @if (submitted()) {
-    <mat-card class="max-w-3xl mx-auto p-6 sm:p-12 success-card space-y-6" appearance="outlined">
+    <mat-card class="success-card mx-auto max-w-3xl space-y-6 p-6 sm:p-12" appearance="outlined">
       <mat-card-header [className]="'w-full'">
-        <h2 matCardTitle class="text-3xl sm:text-4xl font-bold text-green-900 mb-6 dark:text-green-300 leading-tight">
+        <h2 matCardTitle class="mb-6 text-3xl leading-tight font-bold text-green-900 sm:text-4xl dark:text-green-300">
           <div class="flex items-center justify-center space-x-3">
-            <mat-icon class="w-12 h-12 text-5xl">check_circle</mat-icon>
+            <mat-icon class="h-12 w-12 text-5xl">check_circle</mat-icon>
             <span>Благодарим ви!</span>
           </div>
         </h2>
       </mat-card-header>
       <mat-card-content>
-        <p class="text-base sm:text-lg text-green-600 leading-relaxed dark:text-green-200">
+        <p class="text-base leading-relaxed text-green-600 sm:text-lg dark:text-green-200">
           Вашата заявка е изпратена успешно. Наш консултант ще се свърже с вас до 48 часа, за да планирате следващите
           стъпки.
         </p>
       </mat-card-content>
     </mat-card>
   } @else {
-    <div class="max-w-4xl mx-auto px-2 sm:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 dark:text-gray-300 leading-tight">
+    <div class="mx-auto max-w-4xl px-2 sm:px-8">
+      <div class="mb-16 text-center">
+        <h2 class="mb-6 text-3xl leading-tight font-bold text-gray-900 sm:text-4xl lg:text-5xl dark:text-gray-300">
           Резервирайте своето място <span class="text-blue-600 dark:text-blue-400">в пилотната вълна</span> още днес.
         </h2>
-        <p class="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed dark:text-gray-400">
+        <p class="mx-auto max-w-3xl text-base leading-relaxed text-gray-600 sm:text-lg dark:text-gray-400">
           Попълнете формата, за да планираме демонстрация и оценка на процесите ви.<span
             class="font-semibold text-orange-600 dark:text-orange-400"
           >
@@ -33,7 +33,7 @@
       <mat-card class="overflow-hidden">
         <mat-card-content>
           <form [formGroup]="form" class="space-y-4 p-4 sm:p-6" (ngSubmit)="onSubmit()">
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="grid gap-6 md:grid-cols-2">
               <mat-form-field>
                 <mat-label>Име</mat-label>
                 <input matInput placeholder="Иван" type="text" formControlName="first_name" />
@@ -59,7 +59,7 @@
                 <mat-error>Това поле е задължително</mat-error>
               }
             </mat-form-field>
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="grid gap-6 md:grid-cols-2">
               <mat-form-field>
                 <mat-label>Служебен имейл</mat-label>
                 <input matInput placeholder="name@company.bg" type="email" formControlName="email" />
@@ -73,7 +73,7 @@
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Телефон</mat-label>
-                <span matPrefix class="bg-tertiary px-2 py-6 text-on-tertiary">+359</span>
+                <span matPrefix class="bg-tertiary text-on-tertiary px-2 py-6">+359</span>
                 <input matInput placeholder="888-123-456" type="tel" formControlName="phone" />
                 <mat-icon matSuffix>phone</mat-icon>
                 @if (form.get('phone')?.errors?.['required']) {
@@ -84,8 +84,30 @@
                 }
               </mat-form-field>
             </div>
-
-            <button matButton="filled" type="submit" class="w-full submit-button p-8!" [disabled]="loading()">
+            @if (
+              form.hasError('recaptchaFailed') || form.hasError('serverError') || form.hasError('alreadyRegistered')
+            ) {
+              <div class="bg-on-error space-y-2 rounded-md p-4">
+                @if (form.errors?.['recaptchaFailed']) {
+                  <mat-error>reCAPTCHA не успя да се изпълни. Моля, опитайте отново след малко.</mat-error>
+                }
+                @if (form.errors?.['serverError']) {
+                  <mat-error>Възникна грешка на сървъра. Моля, опитайте отново по-късно.</mat-error>
+                }
+                @if (form.errors?.['alreadyRegistered']) {
+                  <mat-error
+                    >Заявка за достъп от този имейл вече е подадена. Наш консултант ще се свърже с Вас възможно
+                    най-скоро.</mat-error
+                  >
+                }
+              </div>
+            }
+            <button
+              matButton="filled"
+              type="submit"
+              class="submit-button w-full p-8!"
+              [disabled]="loading() || form.invalid"
+            >
               <div class="flex items-center justify-center space-x-3">
                 <span class="hidden md:block">Изпратете заявка за пилотен достъп</span>
                 <span class="block md:hidden">Изпрати заявка</span>
@@ -99,8 +121,8 @@
           </form>
         </mat-card-content>
         <mat-card-footer>
-          <div class="p-6 bg-gray-50 dark:bg-gray-900">
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+          <div class="bg-gray-50 p-6 dark:bg-gray-900">
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
               След като получим формата, ще ви изпратим имейл с календар за демонстрация и кратък чеклист с данните за
               миграция. Потвърждението на място става след обща среща и съгласуване на roadmap.
             </p>

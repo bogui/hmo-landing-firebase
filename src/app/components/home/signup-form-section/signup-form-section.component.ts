@@ -6,8 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { of, throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { AnalyticsService } from '../../../services/analytics.service';
 import { RecaptchaService } from '../../../services/recaptcha.service';
@@ -102,50 +102,66 @@ export class SignupFormSectionComponent implements OnInit {
           console.error('reCAPTCHA token generation failed:', error);
           // You might want to show an error message to the user here
           return of(null);
+        }),
+        switchMap((token) => {
+          if (!token) {
+            return throwError(() => new Error('reCAPTCHA token generation failed'));
+          }
+
+          const phoneValue = this.form.value.phone || '';
+          // Prepare form data with phone number including country prefix
+          const formData: TablesInsert<'signups'> = {
+            ...this.form.value,
+            phone: `+359 ${phoneValue}`, // Add country prefix
+          } as TablesInsert<'signups'>;
+
+          // Call orchestrator edge function
+          return this._supabaseService.client.functions.invoke('process-signup', {
+            body: {
+              action: 'signup',
+              recaptchaToken: token,
+              payload: {
+                first_name: formData.first_name!,
+                last_name: formData.last_name!,
+                company: formData.company!,
+                email: formData.email!,
+                phone: formData.phone!,
+              },
+            },
+          });
         })
       )
       .subscribe({
-        next: (token) => {
-          if (token) {
-            const phoneValue = this.form.value.phone || '';
-            // Prepare form data with phone number including country prefix
-            const formData: TablesInsert<'signups'> = {
-              ...this.form.value,
-              phone: `+359 ${phoneValue}`, // Add country prefix
-            } as TablesInsert<'signups'>;
-
-            console.log('Form data ready for submission:', formData);
-
+        next: ({ data, error }) => {
+          if (error) {
+            console.error('Signup processing failed:', error);
+            this.submitted.set(false);
+            this.form.setErrors({ serverError: true });
+            return;
+          }
+          const status = data?.status as
+            | 'success'
+            | 'already_registered'
+            | 'recaptcha_failed'
+            | 'server_error'
+            | undefined;
+          if (status === 'success') {
             // Track conversion for Google Ads campaign
             this._analyticsService.trackConversion(
               environment.googleAdsConversionValue,
               environment.googleAdsConversionCurrency
             );
-
-            // TODO: Send formData to your backend API endpoint
-            // The backend should verify the recaptchaToken by making a POST request to:
-            // https://www.google.com/recaptcha/api/siteverify
-            // with parameters: secret (your secret key), response (the token)
-            // Example:
-            // this.http.post('/api/signup', { ...formData, recaptchaToken: token }).subscribe({
-            //   next: (response) => {
-            //     console.log('Form submitted successfully:', response);
-            //   },
-            //   error: (error) => {
-            //     console.error('Form submission failed:', error);
-            //   }
-            // });
-            this._supabaseService.client.from('signups').insert(formData).then(({ data, error }) => {
-              if (error) {
-                console.error('Error inserting signup:', error);
-                return;
-              }
-              console.log('Signup inserted successfully:', data);
-              this.registered.emit();
-            });
+            this.submitted.set(true);
+            this.registered.emit();
+          } else if (status === 'already_registered') {
+            console.log('User already registered; we will contact shortly.');
+            this.form.setErrors({ alreadyRegistered: true });
+          } else if (status === 'recaptcha_failed') {
+            this.form.setErrors({ recaptchaFailed: true });
+            console.log('reCAPTCHA failed. Submission disabled.');
           } else {
-            console.error('reCAPTCHA token generation failed');
-            // You might want to show an error message to the user here
+            this.form.setErrors({ serverError: true });
+            console.log('Server error. Please try again later.');
           }
         },
         error: (error) => {
@@ -155,7 +171,6 @@ export class SignupFormSectionComponent implements OnInit {
         },
         complete: () => {
           this.loading.set(false);
-          this.submitted.set(true);
         },
       });
   }
