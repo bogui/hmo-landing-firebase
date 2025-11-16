@@ -1,0 +1,7 @@
+{
+	"imports": {
+		"funcs": "jsr:@supabase/functions-js/edge-runtime.d.ts",
+		"mailgun": "npm:mailgun.js",
+		"formdata": "npm:form-data"
+	}
+}
