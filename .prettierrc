@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/prettierrc",
-  "plugins": ["prettier-plugin-organize-imports"],
+  "plugins": ["prettier-plugin-organize-imports","prettier-plugin-tailwindcss"],
   "semi": true,
   "singleQuote": true,
   "trailingComma": "es5",
