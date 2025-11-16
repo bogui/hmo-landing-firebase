@@ -1,5 +1,51 @@
 {
   "recommendations": [
-    "denoland.vscode-deno"
+    // Angular Essentials
+    "angular.ng-template",
+    "johnpapa.angular2",
+    "dbaeumer.vscode-eslint",
+
+    // TypeScript & JavaScript
+    "ms-vscode.vscode-typescript-next",
+
+    // Code Formatting
+    "esbenp.prettier-vscode",
+
+    // Code Quality
+    "sonarsource.sonarlint-vscode",
+    "bradlc.vscode-tailwindcss",
+
+    // Git
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+
+    // Productivity
+    "usernamehw.errorlens",
+    "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense",
+    "formulahendry.auto-rename-tag",
+    "formulahendry.auto-close-tag",
+    "ms-vscode.vscode-json",
+
+    // Themes & Icons
+    "zhuangtongfa.material-theme",
+    "pkief.material-icon-theme",
+    "github.github-vscode-theme",
+
+    // Testing
+    "firsttris.vscode-jest-runner",
+
+    // Documentation
+    "yzhang.markdown-all-in-one",
+
+    // Deno (for Supabase Functions)
+    "denoland.vscode-deno",
+
+    // Additional Helpers
+    "ms-vscode.vscode-typescript-next",
+    "streetsidesoftware.code-spell-checker",
+    "aaron-bond.better-comments",
+    "wayou.vscode-todo-highlight",
+    "gruntfuggly.todo-tree"
   ]
 }

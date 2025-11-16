@@ -1,10 +1,8 @@
 {
-	"imports": {
-		"funcs": "jsr:@supabase/functions-js/edge-runtime.d.ts",
-		"supabase": "jsr:@supabase/supabase-js@2",
+  "imports": {
+    "funcs": "jsr:@supabase/functions-js/edge-runtime.d.ts",
+    "supabase": "jsr:@supabase/supabase-js@2",
     "mailgun": "npm:mailgun.js",
-		"formdata": "npm:form-data"
-	}
+    "formdata": "npm:form-data"
+  }
 }
-
-
