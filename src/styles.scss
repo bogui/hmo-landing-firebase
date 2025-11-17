@@ -7,10 +7,10 @@
 @use "./theme/tailwind.css";
 @use "sass:map";
 
-$filled-container-color: map.get(mat.$orange-palette, 70);
-$filled-label-text-color: map.get(mat.$orange-palette, 20);
-$tonal-container-color: map.get(mat.$cyan-palette, 70);
-$tonal-label-text-color: map.get(mat.$cyan-palette, 20);
+$filled-container-color: map.get(mat.$blue-palette, 80);
+$filled-label-text-color: map.get(mat.$blue-palette, 20);
+$tonal-container-color: map.get(mat.$azure-palette, 80);
+$tonal-label-text-color: map.get(mat.$azure-palette, 20);
 
 :root {
   --mat-sys-shadow: light-dark(#0000000d, #5252521f);
@@ -42,8 +42,8 @@ html {
   @include mat.theme(
     (
       color: (
-        primary: mat.$cyan-palette,
-        tertiary: mat.$orange-palette,
+        primary: mat.$blue-palette,
+        tertiary: mat.$azure-palette,
       ),
       typography: Roboto,
       density: 0,
@@ -75,7 +75,7 @@ html,
 body {
   height: 100%;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+.mdc-notched-outline__notch {
+  border: none;
 }

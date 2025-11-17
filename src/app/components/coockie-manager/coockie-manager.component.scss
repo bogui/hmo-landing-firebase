@@ -1,7 +1,7 @@
 @use "@angular/material" as mat;
 @use "sass:map";
 
-$cookie-color: map.get(mat.$orange-palette, 70);
+$cookie-color: map.get(mat.$blue-palette, 80);
 
 :host {
   @include mat.card-overrides(
